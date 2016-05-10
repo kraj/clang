@@ -1710,7 +1710,8 @@ public:
       break;
     }
 
-    if (getTriple().getOS() == llvm::Triple::FreeBSD) {
+    if (getTriple().getOS() == llvm::Triple::FreeBSD
+        || getTriple().isMusl()) {
       LongDoubleWidth = LongDoubleAlign = 64;
       LongDoubleFormat = &llvm::APFloat::IEEEdouble();
     }
