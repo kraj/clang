@@ -4230,7 +4230,9 @@ std::string Linux::getDynamicLinker(const ArgList &Args) const {
     default:
       ArchName = Triple.getArchName().str();
     }
-    if (Triple.getEnvironment() == llvm::Triple::MuslEABIHF)
+    if (Triple.getEnvironment() == llvm::Triple::MuslEABIHF ||
+        (Triple.getEnvironment() == llvm::Triple::MuslEABI &&
+        tools::arm::getARMFloatABI(*this, Args) == tools::arm::FloatABI::Hard))
       ArchName += "hf";
 
     return "/lib/ld-musl-" + ArchName + ".so.1";
