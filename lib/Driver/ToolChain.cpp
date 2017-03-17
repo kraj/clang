@@ -12,6 +12,7 @@
 #include "ToolChains/Arch/ARM.h"
 #include "ToolChains/Clang.h"
 #include "clang/Basic/ObjCRuntime.h"
+#include "clang/Basic/Version.h"
 #include "clang/Basic/VirtualFileSystem.h"
 #include "clang/Config/config.h"
 #include "clang/Driver/Action.h"
@@ -315,7 +316,10 @@ std::string ToolChain::getCompilerRT(const ArgList &Args, StringRef Component,
   const char *Suffix = Shared ? (Triple.isOSWindows() ? ".dll" : ".so")
                               : (IsITANMSVCWindows ? ".lib" : ".a");
 
-  SmallString<128> Path(getDriver().ResourceDir);
+  SmallString<128> Path(getDriver().SysRoot);
+  StringRef ClangLibdirSuffix(CLANG_LIBDIR_SUFFIX);
+  llvm::sys::path::append(Path, "/usr/", Twine("lib") + ClangLibdirSuffix, "clang",
+                            CLANG_VERSION_STRING);
   StringRef OSLibName = Triple.isOSFreeBSD() ? "freebsd" : getOS();
   llvm::sys::path::append(Path, "lib", OSLibName);
   llvm::sys::path::append(Path, Prefix + Twine("clang_rt.") + Component + "-" +
