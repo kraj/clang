@@ -2070,6 +2070,7 @@ void Generic_GCC::GCCInstallationDetector::ScanLibDirForGCCTriple(
 
     // Debian puts cross-compilers in gcc-cross.
     {"gcc-cross/" + CandidateTriple.str(), "../..", true},
+    {"/" + CandidateTriple.str(), "..", true},
 
     // The Freescale PPC SDK has the gcc libraries in
     // <sysroot>/usr/lib/<triple>/x.y.z so have a look there as well. Only do
