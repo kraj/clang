@@ -128,6 +128,7 @@ void freebsd::Linker::ConstructJob(Compilation &C, const JobAction &JA,
   const llvm::Triple::ArchType Arch = ToolChain.getArch();
   const bool IsPIE =
       !Args.hasArg(options::OPT_shared) &&
+      !Args.hasArg(options::OPT_nopie) &&
       (Args.hasArg(options::OPT_pie) || ToolChain.isPIEDefault());
   ArgStringList CmdArgs;
 

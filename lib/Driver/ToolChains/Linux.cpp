@@ -810,7 +810,19 @@ void Linux::AddIAMCUIncludeArgs(const ArgList &DriverArgs,
   }
 }
 
-bool Linux::isPIEDefault() const { return getSanitizerArgs().requiresPIE(); }
+bool Linux::isPIEDefault() const {
+  const bool IsMips = tools::isMipsArch(getTriple().getArch());
+  const bool IsAndroid = getTriple().isAndroid();
+
+  if (IsMips || IsAndroid)
+    return getSanitizerArgs().requiresPIE();
+
+  return true;
+}
+
+unsigned Linux::GetDefaultStackProtectorLevel(bool KernelOrKext) const {
+  return 2;
+}
 
 SanitizerMask Linux::getSupportedSanitizers() const {
   const bool IsX86 = getTriple().getArch() == llvm::Triple::x86;

@@ -417,6 +417,7 @@ void tools::gnutools::Linker::ConstructJob(Compilation &C, const JobAction &JA,
   const bool IsIAMCU = ToolChain.getTriple().isOSIAMCU();
   const bool IsPIE =
       !Args.hasArg(options::OPT_shared) && !Args.hasArg(options::OPT_static) &&
+      !Args.hasArg(options::OPT_nopie) &&
       (Args.hasArg(options::OPT_pie) || ToolChain.isPIEDefault());
   const bool HasCRTBeginEndFiles =
       ToolChain.getTriple().hasEnvironment() ||
