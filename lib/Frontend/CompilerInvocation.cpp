@@ -1694,7 +1694,7 @@ void CompilerInvocation::setLangDefaults(LangOptions &Opts, InputKind IK,
       if (T.isPS4())
         LangStd = LangStandard::lang_gnucxx11;
       else
-        LangStd = LangStandard::lang_gnucxx98;
+        LangStd = LangStandard::lang_gnucxx14;
       break;
     case InputKind::RenderScript:
       LangStd = LangStandard::lang_c99;
